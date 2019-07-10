@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calculator/GenderCard.dart';
 import 'package:bmi_calculator/ReusableCard.dart';
+import 'package:bmi_calculator/Constants.dart';
+import 'RoundButton.dart';
 
-const bottomContainerHeight = 80.0;
-const inactiveCardColor = Color(0XFF1D1E33);
-const activeCardColor = Color(0XFF111328);
-const bottomButtonColor = Color(0XFFEA1556);
+
 
 enum Gender {
   male,female
@@ -20,29 +19,31 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
-  Color maleCardColor = activeCardColor;
-  Color femaleCardColor = activeCardColor;
-
+  Color maleCardColor = kActiveCardColor;
+  Color femaleCardColor = kActiveCardColor;
+  int height = 180;
+  int weight = 74;
+  int age = 19;
 
   void gender(Gender gender) {
     if(gender == Gender.male) {
-      if(maleCardColor == inactiveCardColor) {
-        maleCardColor = activeCardColor;
-        femaleCardColor = inactiveCardColor;
+      if(maleCardColor == kInactiveCardColor) {
+        maleCardColor = kActiveCardColor;
+        femaleCardColor = kInactiveCardColor;
       }
       else {
-        maleCardColor = inactiveCardColor;
-        femaleCardColor = activeCardColor;
+        maleCardColor = kInactiveCardColor;
+        femaleCardColor = kActiveCardColor;
       }
     }
     else {
-      if(femaleCardColor == inactiveCardColor) {
-        femaleCardColor = activeCardColor;
-        maleCardColor = inactiveCardColor;
+      if(femaleCardColor == kInactiveCardColor) {
+        femaleCardColor = kActiveCardColor;
+        maleCardColor = kInactiveCardColor;
       }
       else {
-        femaleCardColor = inactiveCardColor;
-        maleCardColor = activeCardColor;
+        femaleCardColor = kInactiveCardColor;
+        maleCardColor = kActiveCardColor;
       }
     }
   }
@@ -54,6 +55,7 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             flex:1,
@@ -93,9 +95,7 @@ class _InputPageState extends State<InputPage> {
             flex:1,
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: ReusableCard(color: inactiveCardColor),
-                ),
+                ,
               ],
             ),
           ),
@@ -104,25 +104,122 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(color: inactiveCardColor),
+                  child: ReusableCard(
+                    color: kInactiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "WEIGHT",
+                          style: kDefaultTextStyle,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              weight.toString(),
+                              style:kHeightTextStyle
+                            ),
+                            Text(
+                              "kg",
+                              style:kDefaultTextStyle
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height:12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundButton(
+                              icon: FontAwesomeIcons.plus,
+                              toDo: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            RoundButton(
+                              icon: FontAwesomeIcons.minus,
+                              toDo: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(color: inactiveCardColor),
+                  child: ReusableCard(
+                    color: kInactiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "AGE",
+                          style: kDefaultTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kHeightTextStyle,
+                        ),
+                        SizedBox(
+                          height:12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundButton(
+                              icon: FontAwesomeIcons.plus,
+                              toDo: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            RoundButton(
+                              icon: FontAwesomeIcons.minus,
+                              toDo: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           Container(
-            color: bottomButtonColor,
+            color: kBottomButtonColor,
             margin:EdgeInsets.only(top:10.0),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           )
         ],
       ),
     );
   }
 }
+
+
 
 
 
