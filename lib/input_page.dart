@@ -4,6 +4,7 @@ import 'package:bmi_calculator/GenderCard.dart';
 import 'package:bmi_calculator/ReusableCard.dart';
 import 'package:bmi_calculator/Constants.dart';
 import 'RoundButton.dart';
+import 'BottomButton.dart';
 
 
 
@@ -95,7 +96,56 @@ class _InputPageState extends State<InputPage> {
             flex:1,
             child: Row(
               children: <Widget>[
-                ,
+                Expanded(
+                  child: ReusableCard(
+                      color: kInactiveCardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "HEIGHT",
+                            style: kDefaultTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: <Widget>[
+                              Text(
+                                height.toString(),
+                                style: kHeightTextStyle,
+                              ),
+                              Text(
+                                'cm',
+                                style: kDefaultTextStyle,
+
+                              )
+                            ],
+                          ),
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              activeTrackColor: Colors.white,
+                              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
+                              overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
+                              overlayColor: Color(0X29EA1556),
+                              thumbColor: Color(0XFFEA1556),
+                            ),
+                            child: Slider(
+                              value: height.toDouble(),
+                              min: 120,
+                              max: 220,
+                              inactiveColor: Color(0XFF6D6D7B),
+                              onChanged: (newValue){
+                                setState(() {
+                                  height = newValue.round();
+                                });
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -207,12 +257,12 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kBottomButtonColor,
-            margin:EdgeInsets.only(top:10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
-          )
+          BottomButton(
+            text: "CALCULATE",
+            tap: () {
+              Navigator.pushNamed(context, '/result');
+            }
+          ),
         ],
       ),
     );
