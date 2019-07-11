@@ -5,6 +5,8 @@ import 'package:bmi_calculator/ReusableCard.dart';
 import 'package:bmi_calculator/Constants.dart';
 import 'RoundButton.dart';
 import 'BottomButton.dart';
+import 'CalculateBMI.dart';
+import 'Second.dart';
 
 
 
@@ -260,7 +262,17 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             text: "CALCULATE",
             tap: () {
-              Navigator.pushNamed(context, '/result');
+              CalculateBMI calculate = CalculateBMI(height: height,weight: weight);
+              String bmi = calculate.calculateBMI();
+              String result = calculate.getResult();
+              String description = calculate.getDescription();
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => Second(
+                    BMI: bmi,
+                    result: result,
+                    description: description,
+                  )
+              ));
             }
           ),
         ],

@@ -3,6 +3,11 @@ import 'Constants.dart';
 import 'BottomButton.dart';
 
 class Second extends StatelessWidget {
+  final String BMI;
+  final String result;
+  final String description;
+
+  Second({@required this.BMI,@required this.result,@required this.description});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +39,11 @@ class Second extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(
-                    "NORMAL",
+                    this.result,
                     style: kResultText,
                   ),
                   Text(
-                    "22.1",
+                    this.BMI,
                     style: kBMI,
                   ),
                   Text(
@@ -53,7 +58,7 @@ class Second extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    "You have a normal body weight. Good Job!",
+                    this.description,
                     textAlign: TextAlign.center,
                     style: kSecondPageFont
                   ),
